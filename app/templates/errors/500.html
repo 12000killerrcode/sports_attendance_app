@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row text-center">
+    <div class="col-md-12 mb-4  mt-4">
+        <h1>{{ title }}</h1>
+    </div>
+</div>
+<div class ="row text-center">
+    <div class="col-md-12">
+        <p>
+            Sorry, the administrator has been notified. Please return to the 
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('index') }}">home page</a>.
+            {% else %}
+                <a href="{{ url_for('landing') }}">home page</a>.
+            {% endif %}
+        </p>
+    </div>
+</div>
+{% endblock %}

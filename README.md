@@ -1,8 +1,45 @@
 # SPORTS MANAGEMENT APP.
+
+Write something about  your app
+
+
+### Table of Contents
+
+- [Technologies Used](#technologies-used)
+- [Additional Information](#additional-information)
+
+
+## Technologies Used
+- Flask microframework
+- Python for programming
+
+
+
+## Additional Information
+
+| Prototype | Database Design | Live App Link |
+| --------- | --------------- | ------------- |
+| [Figma]() |                 |               | 
+
+
 ## ROLES
-### MIKE
-##### database user,player,coaching.Templates,
+
+**MIKE**
+- Database:
+    - User
+    - Player,
+    - Coaching
 
 
-### COACH
-#### error handling, performance,target,authentication,password reset
+- Templates:
+    - test.html
+
+
+**COACH**
+
+- Error handling
+- Database:
+    - Performance,
+    - Target
+- Authentication
+- Password reset

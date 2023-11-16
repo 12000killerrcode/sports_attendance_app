@@ -13,6 +13,8 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
+    performances = db.relationship('Performance', backref='author', lazy='dynamic')
+    targets = db.relationship('Target', backref='author', lazy='dynamic')
 
 
     def __repr__ (self):
@@ -24,3 +26,19 @@ class User(UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+
+class Performance(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    year = db.Column(db.String(120), index=True)
+    season = db.Column(db.String(120), index=True)
+    wins = db.Column(db.Integer, index=True)
+    losses = db.Column(db.Integer, index=True)
+    draws = db.Column(db.Integer, index=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+class Target(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    year = db.Column(db.String(120), index=True)
+    body = db.Column(db.Text)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))

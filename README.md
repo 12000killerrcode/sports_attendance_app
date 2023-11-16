@@ -39,7 +39,7 @@ Write something about  your app
 
 - [x] Error handling
 - Database:
-    - [ ] Performance,
+    - [x] Performance,
     - [x] Target
 - [x] Authentication
 - [ ] Password reset

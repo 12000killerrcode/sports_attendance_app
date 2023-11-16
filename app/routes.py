@@ -9,6 +9,8 @@ from flask_login import current_user, login_user, logout_user, login_required
 @app.route("/index")
 def index():
     """Index URL"""
+    if current_user.is_authenticated:
+        return redirect(url_for('coaching'))
     return render_template('index.html', title='Sports Management App')
 
 @app.route('/coaching')
@@ -42,6 +44,8 @@ def target():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     """login"""
+    if current_user.is_authenticated:
+        return redirect(url_for('coaching'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
@@ -55,6 +59,7 @@ def login():
 
 
 @app.route('/logout')
+@login_required
 def logout():
     """Logout a user"""
     logout_user()
@@ -64,6 +69,8 @@ def logout():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     """Register"""
+    if current_user.is_authenticated:
+        return redirect(url_for('coaching'))
     form = RegisterForm()
     if form.validate_on_submit():
         user = User(email=form.email.data)

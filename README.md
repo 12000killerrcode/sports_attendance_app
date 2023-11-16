@@ -37,9 +37,9 @@ Write something about  your app
 
 **COACH**
 
-- Error handling
+- [x] Error handling
 - Database:
-    - Performance,
-    - Target
-- Authentication
-- Password reset
+    - [x] Performance,
+    - [x] Target
+- [x] Authentication
+- [ ] Password reset

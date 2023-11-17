@@ -54,7 +54,7 @@ def login():
             return redirect (url_for('login'))
         login_user(user, remember=form.remember_me.data)
         flash(f'Welcome {form.email.data}')
-        return redirect(url_for('coaching'))
+        return redirect(url_for('index'))
     return render_template('login.html' , title='Login', form=form)
 
 

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row text-center mb-4">
+    <div class="col-md-12">
+        <h1>{{ title }}</h1>
+    </div>
+</div>
+        <div class="row">
+            <div class="col-md-4">
+                <a href="{{ url_for('player') }}">
+                    <div class="card bg-cover text-center" style="background-image: url('https://demos.creative-tim.com/soft-ui-design-system-pro/assets/img/curved-images/curved1.jpg')">
+                        <div class="card-body z-index-2 py-9">
+                            <h2 class="text-white">Team Management</h2>
+                            <p class="text-white">
+                                Manage your team like a pro
+                            </p>
+                            
+                        </div>
+                        <div class="mask bg-gradient-primary border-radius-lg"></div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-4">
+                <a href="{{ url_for('target') }}">
+                    <div class="card bg-cover text-center" style="background-image: url('https://demos.creative-tim.com/soft-ui-design-system-pro/assets/img/curved-images/curved1.jpg')">
+                        <div class="card-body z-index-2 py-9">
+                            <h2 class="text-white">Target</h2>
+                            <p class="text-white">
+                                Make and Keep track of your teams accomplishments.
+                            </p>
+                            
+                        </div>
+                        <div class="mask bg-gradient-primary border-radius-lg"></div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-4">
+                <a href="{{ url_for('performance') }}">
+                    <div class="card bg-cover text-center" style="background-image: url('https://demos.creative-tim.com/soft-ui-design-system-pro/assets/img/curved-images/curved1.jpg')">
+                    <div class="card-body z-index-2 py-9">
+                        <h2 class="text-white">Performance</h2>
+                        <p class="text-white">
+                        Keep track of how your team is doing.
+                        </p>
+                        
+                    </div>
+                    <div class="mask bg-gradient-primary border-radius-lg"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    
+
+
+{% endblock %}

@@ -1,6 +1,6 @@
 from app import app, db
 from flask import render_template, flash, redirect, url_for
-from app.forms import LoginForm, RegisterForm
+from app.forms import LoginForm, RegisterForm, PlayerForm
 from app.models import User, Performance, Target
 from flask_login import current_user, login_user, logout_user, login_required
 
@@ -27,11 +27,12 @@ def performance():
     return render_template('performance.html' , title='Performance')
 
 
-@app.route('/player')
+@app.route('/player', methods=['GET', 'POST'])
 @login_required
 def player():
     """player"""
-    return render_template('player.html' , title='Player')
+    form = PlayerForm()
+    return render_template('player.html' , title='Player', form = form)
 
 
 @app.route('/target')

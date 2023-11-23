@@ -1,7 +1,7 @@
 from app import app, db
 from flask import render_template, flash, redirect, url_for
 from app.forms import LoginForm, RegisterForm, PlayerForm
-from app.models import User, Performance, Target
+from app.models import User, Performance, Target , Player
 from flask_login import current_user, login_user, logout_user, login_required
 
 
@@ -32,7 +32,31 @@ def performance():
 def player():
     """player"""
     form = PlayerForm()
-    return render_template('player.html' , title='Player', form = form)
+    if form.validate_on_submit():
+        player = Player(
+            firstname = form.firstname.data,
+            lastname = form.lastname.data,
+            date_of_birth= form.date_of_birth.data,
+            attendance = form.attendance.data,
+            fitness = form.fitness.data,
+            author=current_user 
+            )
+        db.session.add(player)
+        db.session.commit()
+        flash('Added Player')
+        return redirect(url_for('player'))
+    players = Player.query.all()        
+    return render_template('player.html' , title='Player', form = form, players = players)
+
+
+@app.route('/delete-player/<int:id>')
+@login_required
+def delete_player(id):
+    player = Player.query.filter_by(id = id).first()
+    db.session.delete(player)
+    db.session.commit()
+    flash('Player has been deleted succesfully')
+    return redirect(url_for('player'))
 
 
 @app.route('/target')

@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField, BooleanField, DateField, IntegerField
+from wtforms import StringField, SubmitField, PasswordField, BooleanField, DateField, IntegerField, TextAreaField
 from wtforms.validators import DataRequired, Length
 
 
@@ -33,7 +33,13 @@ class PerformanceForm(FlaskForm):
     '''Performance Form'''
     year = StringField('Year', validators=[DataRequired(), Length(0, 5000)])
     season = StringField('Season', validators=[DataRequired(), Length(1, 1000)])
-    wins= IntegerField('Wins', validators=[DataRequired()])
-    losses = IntegerField('Losses', validators=[DataRequired()])
-    draws = IntegerField('Draws', validators=[DataRequired()])
+    wins= StringField('Wins', validators=[DataRequired(), Length(0, 1000)])
+    losses = StringField('Losses', validators=[DataRequired(), Length(0, 1000)])
+    draws = StringField('Draws', validators=[DataRequired(), Length(0, 1000)])
     submit = SubmitField('Submit')    
+
+class TargetForm(FlaskForm):
+    '''Target Form'''
+    year = StringField('Year', validators=[DataRequired(), Length(0, 5000)])
+    body = TextAreaField('Body', validators=[DataRequired()])
+    submit = SubmitField('Submit')

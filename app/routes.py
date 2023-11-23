@@ -1,6 +1,6 @@
 from app import app, db
 from flask import render_template, flash, redirect, url_for
-from app.forms import LoginForm, RegisterForm, PlayerForm, PerformanceForm
+from app.forms import LoginForm, RegisterForm, PlayerForm, PerformanceForm, TargetForm
 from app.models import User, Performance, Target , Player
 from flask_login import current_user, login_user, logout_user, login_required
 
@@ -86,11 +86,34 @@ def delete_player(id):
     return redirect(url_for('player'))
 
 
-@app.route('/target')
+@app.route('/target', methods=['GET', 'POST'])
 @login_required
 def target():
     """target"""
-    return render_template('target.html' , title='Target')
+    form = TargetForm()
+    if form.validate_on_submit():
+        target = Target(
+            year = form.year.data,
+            body = form.body.data,
+            author=current_user 
+            )
+        db.session.add(target)
+        db.session.commit()
+        flash('Added Target')
+        return redirect(url_for('target'))
+    targets = Target.query.all()        
+    return render_template('target.html' , title='target', form = form, targets = targets)
+
+
+@app.route('/delete-target/<int:id>')
+@login_required
+def delete_target(id):
+    target = Target.query.filter_by(id = id).first()
+    db.session.delete(target)
+    db.session.commit()
+    flash('Target has been deleted succesfully')
+    return redirect(url_for('target'))
+
 
 
 @app.route('/login', methods=['GET', 'POST'])

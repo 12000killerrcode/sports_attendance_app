@@ -33,11 +33,11 @@ class User(UserMixin, db.Model):
 
 class Performance(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    year = db.Column(db.String(), index=True)
+    year = db.Column(db.String(120), index=True)
     season = db.Column(db.String(120), index=True)
-    wins = db.Column(db.Integer, index=True)
-    losses = db.Column(db.Integer, index=True)
-    draws = db.Column(db.Integer, index=True)
+    wins = db.Column(db.String(120), index=True)
+    losses = db.Column(db.String(120), index=True)
+    draws = db.Column(db.String(120), index=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 class Target(db.Model):

@@ -27,4 +27,13 @@ class PlayerForm(FlaskForm):
     attendance = StringField('Attendance', validators=[DataRequired(), Length(1, 200)])
     fitness = IntegerField('Fitness', validators=[DataRequired()])
     submit = SubmitField('Submit')    
-    
+
+
+class PerformanceForm(FlaskForm):
+    '''Performance Form'''
+    year = StringField('Year', validators=[DataRequired(), Length(0, 5000)])
+    season = StringField('Season', validators=[DataRequired(), Length(1, 1000)])
+    wins= IntegerField('Wins', validators=[DataRequired()])
+    losses = IntegerField('Losses', validators=[DataRequired()])
+    draws = IntegerField('Draws', validators=[DataRequired()])
+    submit = SubmitField('Submit')    

@@ -1,6 +1,6 @@
 from app import app, db
 from flask import render_template, flash, redirect, url_for
-from app.forms import LoginForm, RegisterForm, PlayerForm
+from app.forms import LoginForm, RegisterForm, PlayerForm, PerformanceForm
 from app.models import User, Performance, Target , Player
 from flask_login import current_user, login_user, logout_user, login_required
 
@@ -20,11 +20,38 @@ def coaching():
     return render_template('coaching.html' , title='Coaching')
 
 
-@app.route('/performance')
+@app.route('/performance', methods=['GET', 'POST'])
 @login_required
 def performance():
     """performance"""
-    return render_template('performance.html' , title='Performance')
+    form = PerformanceForm()
+    if form.validate_on_submit():
+        performance = Performance(
+            year = form.year.data,
+            season = form.season.data,
+            wins = form.wins.data,
+            losses = form.losses.data,
+            draws = form.draws.data,
+            author=current_user 
+            )
+        db.session.add(performance)
+        db.session.commit()
+        flash('Added performance record')
+        return redirect(url_for('performance'))
+    performances = Performance.query.all()        
+    return render_template('performance.html' , title='Performance', form = form, performances = performances)
+
+
+@app.route('/delete-performance/<int:id>')
+@login_required
+def delete_performance(id):
+    performance = Performance.query.filter_by(id = id).first()
+    db.session.delete(performance)
+    db.session.commit()
+    flash('Performance has been deleted succesfully')
+    return redirect(url_for('performance'))
+
+
 
 
 @app.route('/player', methods=['GET', 'POST'])

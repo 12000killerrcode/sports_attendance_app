@@ -1,7 +1,10 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, BooleanField, DateField, IntegerField, TextAreaField
-from wtforms.validators import DataRequired, Length
+from wtforms.validators import DataRequired, Length, email
 
+class EditProfileForm(FlaskForm):
+    email = StringField('email', validators=[DataRequired()])
+    submit =  SubmitField('Edit Profile')
 
 class LoginForm(FlaskForm):
     '''Login Form'''

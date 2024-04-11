@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-5 text-center">
+            <p>
+                <img src="{{ user.avatar(120) }}" alt="User avatar">
+            </p>
+        </div>
+    </div>
+    <div class="col-md-7">
+        <p>
+            <strong>Username:</strong> {{ user.username }}
+        </p>
+        <p>
+            <strong>Email:</strong> {{ user.email }}
+        </p>
+        <p>
+            <a  href="{{ url_for('edit_profile') }}">edit profile</a>
+        </p>
+    </div>
+    <hr>
+{% endblock %}    

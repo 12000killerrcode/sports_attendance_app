@@ -1,6 +1,6 @@
 from app import app, db
-from flask import render_template, flash, redirect, url_for
-from app.forms import LoginForm, RegisterForm, PlayerForm, PerformanceForm, TargetForm
+from flask import render_template, flash, redirect, url_for, request
+from app.forms import LoginForm, RegisterForm, PlayerForm, PerformanceForm, TargetForm, EditProfileForm
 from app.models import User, Performance, Target , Player
 from flask_login import current_user, login_user, logout_user, login_required
 
@@ -155,3 +155,32 @@ def register():
         flash('You have been registered successfuly. Login to continue')
         return redirect(url_for('login'))
     return render_template('register.html' , title='Register', form=form)
+
+
+@app.route('/<email>/profile')
+@login_required
+def profile(email):
+    """Profile page"""
+    user = User.query.filter_by(email=email).first_or_404()
+    return render_template(
+        'profile.html',
+        title='Profile',
+        user=user)
+
+
+@app.route('/edit_profile', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    form = EditProfileForm()
+    if form.validate_on_submit():
+        current_user.email = form.email.data
+        db.session.commit()
+        flash('Your changes have been saved')
+        return redirect (url_for('profile', email=current_user.email))
+    elif request.method == 'GET':
+        form.email.data = current_user.email
+    return render_template(
+        'edit_profile.html',
+        title='Edit Profile',
+        form=form
+    )    

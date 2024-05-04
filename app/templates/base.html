@@ -20,7 +20,7 @@
       <!--Start: navbar-->
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-          <a class="navbar-brand" href="{{ url_for('index') }}">SPORTS MANAGEMENT APP.</a>
+          <a class="navbar-brand" href="{{ url_for('index') }}">SPORTS MANAGEMENT APP.<h6>By SportIT</h6></a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -43,6 +43,9 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('chat') }}">Chat</a>
               </li>
 
               {% endif %}

@@ -1,10 +1,25 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, PasswordField, BooleanField, DateField, IntegerField, TextAreaField
-from wtforms.validators import DataRequired, Length, email
+from wtforms.validators import DataRequired, Length, ValidationError, Email, EqualTo
+from app.models import User
 
 class EditProfileForm(FlaskForm):
     email = StringField('email', validators=[DataRequired()])
     submit =  SubmitField('Edit Profile')
+
+    def _init_(self, original_email, *args, **kwargs) -> None:
+        super(EditProfileForm, self).__init__(*args, **kwargs)
+        self.original_email = original_email
+
+    def validate_email(self, email):
+        if email.data != self.original_email:
+            user = User.query.filter_by (email=self.email.data).first()
+            if user is not None:
+                raise ValidationError('Please use a different email')
+            
+
+
+    
 
 class LoginForm(FlaskForm):
     '''Login Form'''
@@ -20,6 +35,15 @@ class RegisterForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired()])
     register = SubmitField('Register')
+
+
+    
+def validate_email(self, email):
+    """Validate new user email"""
+    user = User.query.filter_by(email=email.data).first()
+    if user is not None:
+        raise ValidationError('Please use a different email address.')
+
 
 
 class PlayerForm(FlaskForm):
@@ -46,3 +70,19 @@ class TargetForm(FlaskForm):
     year = StringField('Year', validators=[DataRequired(), Length(0, 5000)])
     body = TextAreaField('Body', validators=[DataRequired()])
     submit = SubmitField('Submit')
+
+class PostForm(FlaskForm):
+    '''Post Form'''
+    body = TextAreaField('Body', validators=[DataRequired()])
+    submit = SubmitField('Submit')    
+
+class ResetPasswordRequestForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()]) 
+    submit = SubmitField('Request Password Reset')
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Password', validators=[DataRequired()])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('pasword')])
+    submit = SubmitField('Reset Password')
+
+

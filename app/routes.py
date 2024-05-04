@@ -1,8 +1,48 @@
 from app import app, db
 from flask import render_template, flash, redirect, url_for, request
-from app.forms import LoginForm, RegisterForm, PlayerForm, PerformanceForm, TargetForm, EditProfileForm
-from app.models import User, Performance, Target , Player
+from app.forms import LoginForm, RegisterForm, PlayerForm, PerformanceForm, TargetForm, EditProfileForm, PostForm, \
+    ResetPasswordRequestForm, ResetPasswordForm
+from app.models import User, Performance, Target , Player, Post
 from flask_login import current_user, login_user, logout_user, login_required
+from app.email import send_password_reset_email
+
+
+@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+def reset_password(token):
+    """Reset password URL"""
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    user = User.verify_reset_password_token(token)
+    if not user:
+        return redirect(url_for('index'))
+    form = ResetPasswordForm()
+    if form.validate_on_submit():
+        user.set_password(form.password.data)
+        db.session.commit()
+        flash('Your password has been reset.')
+        return redirect(url_for('login'))
+    return render_template(
+        'reset_password.html',
+        title='Reset Password',
+        form=form)
+
+@app.route('/request_password_reset', methods=['GET', 'POST'])
+def request_password_reset():
+    """Request password reset URL"""
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = ResetPasswordRequestForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user:
+            send_password_reset_email(user)
+        flash('check your email  for the instruction to reset your password. ASANTE!,THANKYOU!')
+        return redirect(url_for('login'))
+    return render_template(
+        'request_password_reset.html',
+        title='Request Password Reset',
+        form=form)    
+
 
 
 @app.route("/")
@@ -171,7 +211,7 @@ def profile(email):
 @app.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
-    form = EditProfileForm()
+    form = EditProfileForm(current_user.email)
     if form.validate_on_submit():
         current_user.email = form.email.data
         db.session.commit()
@@ -184,3 +224,44 @@ def edit_profile():
         title='Edit Profile',
         form=form
     )    
+
+
+@app.route('/chat', methods=['GET', 'POST'])
+@login_required
+def chat():
+    """post"""
+    form = PostForm()
+    if form.validate_on_submit():
+        post = Post(
+            body = form.body.data,
+            author=current_user 
+            )
+        db.session.add(post)
+        db.session.commit()
+        flash('Posted')
+        return redirect(url_for('chat'))
+    page = request.args.get('page', 1, type=int)
+    posts = Post.query.order_by(Post.timestamp.desc()).paginate(
+        page=page,
+        per_page=app.config['POSTS_PER_PAGE'],
+        error_out=False)
+    next_url = url_for('chat', email=current_user.email, page=posts.next_num) \
+        if posts.has_next else None
+    prev_url = url_for('chat', email= current_user.email, page=posts.prev_num) \
+        if posts.has_prev else None
+    return render_template(
+        'chat.html' , 
+        title='Chat', 
+        form = form, 
+        posts = posts.items,
+        next_url=next_url,
+        prev_url=prev_url)
+
+@app.route('/delete-post/<int:id>')
+@login_required
+def delete_post(id):
+    post = Post.query.filter_by(id = id).first()
+    db.session.delete(post)
+    db.session.commit()
+    flash('Post has been deleted')
+    return redirect(url_for('chat'))

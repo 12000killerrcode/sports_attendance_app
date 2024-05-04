@@ -1,0 +1,16 @@
+<table>
+    <p>
+        CHATS
+    </p>
+    <tr valign="top">
+        <td><img src=" {{ post.author.avatar(36) }}"></td>
+        <td>
+            <h5>{{ post.author.email }}</h5>
+            says:<br>
+            {{ post.body }}
+        </td>
+        <td>
+            <a href="{{ url_for('delete_post', id = post.id) }}">Delete</a>
+        </td>
+    </tr>
+</table>

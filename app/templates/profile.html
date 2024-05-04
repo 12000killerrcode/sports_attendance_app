@@ -20,4 +20,15 @@
         </p>
     </div>
     <hr>
+    <div class="row">
+        <div class="col-md-12">
+            {% for post in posts %}
+                {% if post %}
+                    {% include 'post.html' %}
+                {% endif %}
+            {% endfor %}        
+
+        </div>
+    </div>
+    
 {% endblock %}    

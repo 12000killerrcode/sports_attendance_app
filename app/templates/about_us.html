@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="row">
+    <div class="col-md-4">
+        <!--Empty column-->
+    </div>
+    <div class="col-md-4">
+        <img class="logo" src="{{url_for('static',filename='images/SIFA.png')}}" class="d-block w-100" alt="SIFA">  
+    </div>
+    <div class="col-md-4">
+        <p>
+            <h1>SIFA, An institution for sporting technology.</h1>
+        </p>
+    </div>
+</div><br><br>
+<div class="row">
+    <div class="col-md-4">
+        <p>
+            SIFA, based in Kenya and an upcoming Sport Technology company that is still in development
+        </p>
+    </div>
+    <div class="col-md-4">
+        <p>
+            <h6>Our Mission:</h6> To create apps, webstites and other technological equipments to better the the sport industry in Kenya as well as Africa.<br><br>
+           <h6>Our Vision:</h6> We plan in the near future to not only create Apps and Websites, we also plan to create machinery that can help the Sport industry in the African continet
+            as well as World wide to make sports more ENJOYABLE on the Pitch, Gym, and Trainig Facilites.
+        </p>
+    </div>
+    <div class="col-md-4">
+        <a href="{{ url_for('patners') }}">Patners</a>   
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-md-4">
+        <img class="logo" src="{{url_for('static',filename='images/SIFA.png')}}" class="d-block w-100" alt="SIFA">
+    </div>
+    <div class="col-md-4">
+        <p>
+            Some of our patners include:<br><br>
+
+           <a href="https://www.kingsfootballacademy.com/">KINGS FOOTBALL ACADEMY</a><br><br>
+           <a href="http://tinkeredu.net/">TINKER EDUCATION</a>
+        </p>
+    </div>
+    <div class="col-md-4">
+        <!--Empty column-->
+    </div>
+</div>
+{% endblock %}

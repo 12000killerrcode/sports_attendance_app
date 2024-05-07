@@ -265,3 +265,16 @@ def delete_post(id):
     db.session.commit()
     flash('Post has been deleted')
     return redirect(url_for('chat'))
+
+
+@app.route("/about_us")
+def about_us():
+    """About_Us  URL"""
+    return render_template('about_us.html', title='SIFA group')
+
+
+
+@app.route("/patners")
+def patners():
+    """Patners URL"""
+    return render_template('patners.html', title='SIFA partners')

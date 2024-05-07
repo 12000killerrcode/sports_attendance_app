@@ -20,6 +20,7 @@ class User(UserMixin, db.Model):
     targets = db.relationship('Target', backref='author', lazy='dynamic')
     players = db.relationship('Player', backref='author', lazy='dynamic')
     coaching = db.relationship('Coaching', backref='author', lazy='dynamic')
+    last_seen = db.Column(db.DateTime, default=datetime.now)
     posts = db.relationship('Post', backref='author', lazy='dynamic')
 
     def get_reset_password_token(self, expires_in=600):

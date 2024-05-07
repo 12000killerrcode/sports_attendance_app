@@ -12,6 +12,11 @@
         <p>
             <strong>Email:</strong> {{ user.email }}
         </p>
+        {% if user.last_seen %}
+            <p>
+                <strong>Last Seen:</strong> {{ moment(user.last_seen).format("lll") }}
+            </p>
+        {% endif %}    
         <p>
             <a  href="{{ url_for('edit_profile') }}">edit profile</a>
         </p>

@@ -3,8 +3,15 @@ from flask import render_template, flash, redirect, url_for, request
 from app.forms import LoginForm, RegisterForm, PlayerForm, PerformanceForm, TargetForm, EditProfileForm, PostForm, \
     ResetPasswordRequestForm, ResetPasswordForm
 from app.models import User, Performance, Target , Player, Post
-from flask_login import current_user, login_user, logout_user, login_required
+from flask_login import current_user, login_user, logout_user, login_required, current_user 
 from app.email import send_password_reset_email
+from datetime import datetime
+
+@app.before_request
+def before_request():
+    if current_user.is_authenticated:
+        current_user.last_seen = datetime.now()
+        db.session.commit()
 
 
 @app.route('/reset_password/<token>', methods=['GET', 'POST'])

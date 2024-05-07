@@ -31,7 +31,7 @@ if not app.debug:
     if app.config['MAIL_USE_TLS']:
         secure = ()
         mail_handler = SMTPHandler(
-            mailhost=(app.config['MAIL SERVER'], app.config['MAIL PORT']),
+            mailhost=(app.config['MAIL_SERVER'], app.config['MAIL_PORT']),
             fromaddr='no-reply@' + app.config['MAIL_SERVER'],
             toaddrs=app.config['ADMINS'], subject='SportS Management App Failure',
             credentials=auth, secure=secure)

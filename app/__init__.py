@@ -35,7 +35,7 @@ if not app.debug:
             fromaddr='no-reply@' + app.config['MAIL_SERVER'],
             toaddrs=app.config['ADMINS'], subject='SportS Management App Failure',
             credentials=auth, secure=secure)
-        mail_handler.setlevel(logging.ERROR)    
+        mail_handler.setLevel(logging.ERROR)    
         app.logger.addHandler(mail_handler) 
 
         #------------------

@@ -50,10 +50,10 @@ if not app.debug:
             maxBytes=10240, 
             backupCount=10 )
         file_handler.setFormatter(logging.Formatter('%(asctime)s %(message)s [in %(pathname)s:%(lineno)d]'))
-        file_handler.setlevel(logging.INFO)
+        file_handler.setLevel(logging.INFO)
         app.logger.addHandler(file_handler)
 
-        app.logger.setlevel(logging.INFO)
+        app.logger.setLevel(logging.INFO)
         app.logger.info('Sports Management App')
 
 from app import routes, models, errors

@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base.html'%}
 {% block content %}
 <div class="row text-center mb-4">
     <div class="col-md-12">
@@ -7,7 +7,7 @@
 </div>
 <div class="row text-center" >
     <div class="col-md-12">
-        <button type="button" class="btn btn-block btn-success mb-3" data-bs-toggle="modal" data-bs-target="#modal-form">Add Player details</button>
+        <button type="button" class="btn btn-block btn-success mb-3" data-bs-toggle="modal" data-bs-target="#modal-form">Edit Player details</button>
         <div class="modal fade" id="modal-form" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
             <div class="modal-content">
@@ -15,7 +15,7 @@
                 <div class="card card-plain">
                 <div class="card-header pb-0 text-left">
                     <h3 class="font-weight-bolder text-info text-gradient">Welcome back</h3>
-                    <p class="mb-0">Enter player first name, last name, date of birth, attendance, fitness level- between 1 and 10</p>
+                    <p class="mb-0">Edit player first name, last name, date of birth, attendance, fitness level- between 1 and 10</p>
                 </div>
                 <div class="card-body">
                     <form role="form" action="" method="post" novalidate>
@@ -110,7 +110,7 @@
 
                 </thead>
                 <tbody>
-                    {% for player in players%}
+                    {% for Editplayer in Editplayers%}
                     <tr>
                         <td>
                             {{ player.firstname }}
@@ -128,7 +128,7 @@
                             {{ player.fitness }}
                         </td>
                         <td>
-                            <a href="{{ url_for('delete_player', id = player.id) }}">Delete</a><br>
+                            <a href="{{ url_for('delete_player', id = player.id) }}">Delete</a>
                             <a href="{{ url_for('edit_player') }}">Edit</a>
                         </td>
                     </tr>
@@ -140,4 +140,5 @@
         </div>
     </div>
 </div>
+
 {% endblock %}

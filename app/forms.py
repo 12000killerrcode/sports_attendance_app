@@ -55,6 +55,15 @@ class PlayerForm(FlaskForm):
     fitness = IntegerField('Fitness', validators=[DataRequired()])
     submit = SubmitField('Submit')    
 
+class EditPlayerForm(FlaskForm):
+    '''Edit Player'''
+    firstname = StringField('First Name', validators=[DataRequired(), Length(1, 50)])
+    lastname = StringField('Last Name', validators=[DataRequired(), Length(1, 50)])
+    date_of_birth= DateField('Date of birth', validators=[DataRequired()])
+    attendance = StringField('Attendance', validators=[DataRequired(), Length(1, 200)])
+    fitness = IntegerField('Fitness', validators=[DataRequired()])
+    submit = SubmitField('Submit')       
+
 
 class PerformanceForm(FlaskForm):
     '''Performance Form'''
@@ -84,5 +93,6 @@ class ResetPasswordForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('pasword')])
     submit = SubmitField('Reset Password')
+
 
 
